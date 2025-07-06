@@ -35,16 +35,8 @@ pipeline {
                 '''
             }
         }
-    }
 
-    // post {
-    //     always {
-    //         junit 'test-results/junit.xml'
-    //     }
-    // }
-
-    stages {
-        stage('deploy') {
+        stage('Deploy') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -58,4 +50,11 @@ pipeline {
                 '''
             }
         }
+    }
+
+    post {
+        always {
+            junit 'test-results/junit.xml'
+        }
+    }
 }
