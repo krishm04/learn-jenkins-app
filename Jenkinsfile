@@ -36,7 +36,7 @@ pipeline {
             steps {
                 sh '''
                     test -f build/index.html
-                    npm test || true  # In case no test is defined, don't fail
+                    npm test || true 
                 '''
             }
         }
