@@ -42,23 +42,24 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
+    agent {
+        docker {
+            image 'node:18-alpine'
+            reuseNode true
+        }
+    }
+    steps {
         sh '''
             npm install -g netlify-cli
             echo "Deploying to Netlify..."
             netlify deploy --dir=build --prod \
                 --auth=$NETLIFY_AUTH_TOKEN \
                 --site=$NETLIFY_SITE_ID \
-                --message "Deployed via Jenkins CI"
+                --message "Deployed via Jenkins CI" \
+                --build=false
         '''
     }
-        }
+}
     }
 
     post {
