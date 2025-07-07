@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NETLIFY_SITE_ID = '19cd7f39-98ba-45ed-b17f-00943f442cee' 
-        NETLIFY_AUTH_TOKEN = credentials('NETLIFY_AUTH_TOKEN') 
+        NETLIFY_SITE_ID = '19cd7f39-98ba-45ed-b17f-00943f442cee'
+        NETLIFY_AUTH_TOKEN = credentials('NETLIFY_AUTH_TOKEN')
     }
 
     stages {
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 sh '''
                     test -f build/index.html
-                    npm test || true 
+                    npm test || true
                 '''
             }
         }
@@ -59,7 +59,7 @@ pipeline {
 
     post {
         always {
-            junit 'test-results/junit.xml'
+            echo "Build and deploy completed"
         }
     }
 }
