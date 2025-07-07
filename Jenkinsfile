@@ -49,18 +49,15 @@ pipeline {
                 }
             }
             steps {
-                sh '''
-                    npm install -g netlify-cli
-                    echo "Deploying to Netlify..."
-                    netlify deploy --dir=build --prod \
-                        --auth=$NETLIFY_AUTH_TOKEN \
-                        --site=$NETLIFY_SITE_ID \
-                        --message "Deployed via Jenkins CI" \
-                        --json > deploy-output.json
-
-                    cat deploy-output.json
-                '''
-            }
+        sh '''
+            npm install -g netlify-cli
+            echo "Deploying to Netlify..."
+            netlify deploy --dir=build --prod \
+                --auth=$NETLIFY_AUTH_TOKEN \
+                --site=$NETLIFY_SITE_ID \
+                --message "Deployed via Jenkins CI"
+        '''
+    }
         }
     }
 
