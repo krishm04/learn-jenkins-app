@@ -50,22 +50,26 @@ pipeline {
     }
     steps {
         sh '''
-            apk add --no-cache bash
-            npm install -g netlify-cli
-            echo "Verifying build folder:"
+            apk add --no-cache bash git
+            npm ci
+            npm install netlify-cli
+            echo "Netlify CLI version:"
+            node_modules/.bin/netlify --version
+
+            echo "Checking build folder:"
             ls -la build
-            test -f build/index.html
+
             echo "Deploying to Netlify..."
-            npx netlify deploy \
+            node_modules/.bin/netlify deploy \
                 --dir=build \
                 --prod \
                 --auth=$NETLIFY_AUTH_TOKEN \
                 --site=$NETLIFY_SITE_ID \
-                --message "Deployed via Jenkins CI" \
-                --framework=none
+                --message "Deployed via Jenkins CI"
         '''
     }
 }
+
     }
 
     post {
